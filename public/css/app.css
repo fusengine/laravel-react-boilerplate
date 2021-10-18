@@ -11281,6 +11281,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body {
+  background-color: #f7fafb !important;
+}
+
 .fuse-card {
   width: 450px;
 }
