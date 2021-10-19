@@ -115,7 +115,7 @@
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_react_pages_Home_jsx":1,"resources_js_react_pages_About_jsx":1,"resources_js_react_pages_Login_jsx":1,"resources_js_react_pages_Register_jsx":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_react_pages_Home_jsx":1,"resources_js_react_pages_About_jsx":1,"resources_js_react_pages_Login_jsx":1,"resources_js_react_pages_Register_jsx":1,"resources_js_react_pages_Auth_User_Dashboard_jsx":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

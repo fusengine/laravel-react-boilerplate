@@ -62,7 +62,7 @@ class AuthenticationController extends Controller
 
         return response()->json([
             'token_access' => $token,
-            'token_type'   => "Bearer {$token}",
+            'token_type'   => "Bearer",
         ], 200);
 
     }

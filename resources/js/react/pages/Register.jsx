@@ -24,6 +24,8 @@ const Register = ({ register, error }) => {
         password_confirmation: "",
     });
 
+    const { name, email, password, password_confirmation } = form;
+
     /** target input field */
     const handleChange = (name) => (e) => {
         setForm({ ...form, [name]: e.target.value });

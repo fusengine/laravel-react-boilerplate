@@ -1,4 +1,9 @@
-import { POST_API } from "../../config";
+import {
+    GET_API,
+    POST_API,
+    setAuthTokenHeaders,
+    TOKEN_NAME,
+} from "../../config";
 
 /**
  * Types
@@ -7,6 +12,9 @@ import {
     USER_LOADED,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILED,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_FAILED,
+    USER_LOADED_ERROR,
 } from "../../services";
 
 /**
@@ -18,8 +26,27 @@ import { setAlert } from "../../services";
  * Permet de charger les données une fois connecté
  */
 export const loadUser = () => async (dispatch) => {
+    // vérifie le token stocké dans le navigateur
+    if (localStorage.fusetoken) {
+        setAuthTokenHeaders(localStorage.fusetoken);
+    }
+
     try {
-    } catch (err) {}
+        //récupère l'api
+        const response = await GET_API("user");
+
+        // Envoie le reducer et la donnée une fois connecté
+        dispatch({
+            type: USER_LOADED,
+            payload: response.data,
+        });
+        dispatch(setAlert("Vos données sont chargé.", "success"));
+    } catch (err) {
+        dispatch({
+            type: USER_LOADED_ERROR,
+            payload: err.response.data.message,
+        });
+    }
 };
 
 /**
@@ -66,9 +93,45 @@ export const register = (body) => async (dispatch) => {
 /**
  * Permet de ce connecté
  */
-export const login = () => async (dispatch) => {
+export const login = (body) => async (dispatch) => {
     try {
-    } catch (err) {}
+        await GET_API("/sanctum/csrf-cookie");
+        const res = await POST_API("/login", body);
+
+        dispatch({
+            type: LOGIN_USER_SUCCESS,
+            payload: res.data,
+        });
+
+        dispatch(setAlert("Vous êtes connecté.", "primary"));
+        dispatch(loadUser());
+    } catch (err) {
+        switch (err.response.status) {
+            case 422:
+                dispatch(
+                    setAlert(
+                        "Erreur de connexion au compte, veuillez réessayé.",
+                        "warning"
+                    )
+                );
+                break;
+            case 500:
+                dispatch(
+                    setAlert(
+                        "Problème de connexion à la base de données",
+                        "danger"
+                    )
+                );
+                break;
+            default:
+                return err.response.status;
+        }
+
+        dispatch({
+            type: LOGIN_USER_FAILED,
+            payload: err.response.data.errors,
+        });
+    }
 };
 
 /**

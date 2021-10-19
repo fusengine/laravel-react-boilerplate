@@ -1,22 +1,13 @@
 import { TOKEN_NAME } from "./defaults/constantes.config";
 
 /**
- * Permet d'insérer le token
- *
- * @param Any value la valeur du token
- */
-export const setLocalStorageToken = (value) => {
-    return localStorage.setItem(TOKEN_NAME, value);
-};
-
-/**
  * Permet d'accédé a la valeur du token ou le retire du header
  *
  * @param Any value
  */
-export const setAuthTokenHeaders = (value) => {
+export const setAuthTokenHeaders = (token) => {
     if (token) {
-        axios.defaults.headers.common[TOKEN_NAME] = value; // set token
+        axios.defaults.headers.common[TOKEN_NAME] = token; // set token
     } else {
         delete axios.defaults.headers.common[TOKEN_NAME]; // remove token
     }

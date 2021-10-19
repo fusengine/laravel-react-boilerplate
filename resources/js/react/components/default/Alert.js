@@ -12,7 +12,7 @@ const Alert = ({ alerts }) => {
                 alerts.map((alert) => (
                     <div
                         key={alert.id}
-                        className={`rounded alert-${alert.alertType} mb-3 shadow-sm`}
+                        className={`rounded alert-${alert.alertType} mb-2 shadow-sm`}
                         role="alert"
                     >
                         <div className="p-3 mt-2">{alert.msg}</div>
