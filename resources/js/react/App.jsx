@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import store from "./stores";
-import { loadUser } from "./services";
-
-import { Alert, Navbar } from "./components";
-import { setAuthTokenHeaders } from "./config";
 import Routes from "./routes";
+import { Alert, Navbar } from "./components";
 
-if (localStorage.fusetoken) {
-    setAuthTokenHeaders(localStorage.fusetoken);
-}
+import { loadUser, authenticatedSelector } from "./services";
+import { getSessionStorage, setAuthTokenHeaders } from "./config";
 
-const App = () => {
+const App = ({ isAuthenticated }) => {
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        store.dispatch(loadUser());
-    }, [loadUser()]);
+        if (getSessionStorage()) {
+            setAuthTokenHeaders(getSessionStorage());
+            dispatch(loadUser());
+        }
+    }, [dispatch]);
 
     return (
         <Router>
@@ -27,4 +27,9 @@ const App = () => {
     );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: authenticatedSelector(state),
+    };
+};
+export default connect(mapStateToProps)(App);

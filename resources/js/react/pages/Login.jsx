@@ -1,21 +1,15 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 /** Components */
 import { Header, Card, InputFloat } from "../components";
 
-/**
- * Action redux
- */
-import { login } from "../services/";
-
-/**
- * Helpers
- */
+import { login, loadingSelector, authenticatedSelector } from "../services/";
 import { errorClassField, errorFieldMessage } from "../config";
 
 // CSS
-const Login = ({ login, error }) => {
+const Login = ({ login, error, isAuthenticated, loading }) => {
     const [form, setForm] = useState({
         email: "a@a.ch",
         password: "111111",
@@ -36,7 +30,15 @@ const Login = ({ login, error }) => {
             ...form,
         });
     };
-    return (
+
+    // // Redirect si connecté
+    // if (isAuthenticated) {
+    //     return <Redirect to="/profile/user" />;
+    // }
+
+    return isAuthenticated ? (
+        <Redirect to="/profile/user" />
+    ) : (
         <Fragment>
             <Header title="Login Page"></Header>
             <Card>
@@ -73,10 +75,9 @@ const Login = ({ login, error }) => {
 };
 
 const mapStateToProps = (state) => ({
-    user: state.authentication.user,
     error: state.authentication.error,
-    loading: state.authentication.loading,
-    isAuthenticated: state.authentication.isAuthenticated,
+    loading: loadingSelector(state),
+    isAuthenticated: authenticatedSelector(state),
 });
 
 export default connect(mapStateToProps, { login })(Login);

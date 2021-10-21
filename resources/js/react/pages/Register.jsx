@@ -1,22 +1,13 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-/**
- * Components
- */
 import { Header, Card, InputFloat } from "../components";
 
-/**
- * Action redux
- */
-import { register } from "../services/";
-
-/**
- * Helpers
- */
+import { register, authenticatedSelector } from "../services/";
 import { errorClassField, errorFieldMessage } from "../config";
 
-const Register = ({ register, error }) => {
+const Register = ({ register, error, isAuthenticated }) => {
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -39,7 +30,10 @@ const Register = ({ register, error }) => {
             ...form,
         });
     };
-
+    // Redirect si connecté
+    if (isAuthenticated) {
+        return <Redirect to="/profile/user" />;
+    }
     return (
         <Fragment>
             <Header title="Register Page"></Header>
@@ -98,6 +92,7 @@ const Register = ({ register, error }) => {
 
 const mapStateToProps = (state) => ({
     error: state.authentication.error,
+    isAuthenticated: authenticatedSelector(state),
 });
 
 export default connect(mapStateToProps, { register })(Register);

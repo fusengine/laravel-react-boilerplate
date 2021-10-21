@@ -1,72 +1,71 @@
 import {
+    getSessionStorage,
+    removeSessionStorage,
+    setSessionStorage,
+} from "../../config";
+
+import {
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILED,
     LOGIN_USER_FAILED,
     LOGIN_USER_SUCCESS,
     USER_LOADED_ERROR,
     USER_LOADED,
+    LOGOUT_USER,
+    USER_PROFILE_CLEAR,
 } from "../../services";
 
-import { TOKEN_NAME, REMOVE_LOCAL_TOKEN } from "../../config";
-
-const stateInitiale = {
-    user: null,
+const initialState = {
+    user: {},
     error: null,
     loading: false,
     isAuthenticated: false,
-    token_access: localStorage.getItem(TOKEN_NAME),
+    token: getSessionStorage(),
 };
 
-export default (state = stateInitiale, action) => {
+export default (state = initialState, action) => {
     const { type, payload } = action;
-
     switch (type) {
         case USER_LOADED: {
-            //localStorage.setItem(TOKEN_NAME, payload.token_access);
             return {
                 ...state,
-                ...payload,
                 user: payload,
                 loading: true,
-                token_access: payload.token_access,
                 isAuthenticated: true,
             };
         }
         case REGISTER_USER_SUCCESS: {
             return {
                 ...state,
-                ...payload,
-                user: null,
+                user: {},
                 error: null,
-                token_access: null,
+                token: null,
                 loading: false,
                 isAuthenticated: false,
             };
         }
         case LOGIN_USER_SUCCESS: {
-            localStorage.setItem(
-                TOKEN_NAME,
-                JSON.stringify(payload.token_access)
-            );
+            setSessionStorage(payload.token_access);
             return {
                 ...state,
-                ...payload,
                 error: null,
                 loading: true,
-                token_access: payload.token_access,
+                token: payload.token_access,
                 isAuthenticated: true,
             };
         }
+        case LOGOUT_USER:
         case USER_LOADED_ERROR:
         case LOGIN_USER_FAILED:
+        case USER_PROFILE_CLEAR:
         case REGISTER_USER_FAILED: {
-            REMOVE_LOCAL_TOKEN;
+            removeSessionStorage();
             return {
                 ...state,
-                user: null,
+                user: {},
                 loading: false,
                 error: payload,
-                token_access: null,
+                token: null,
                 isAuthenticated: false,
             };
         }

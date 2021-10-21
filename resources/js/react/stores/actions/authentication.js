@@ -15,6 +15,8 @@ import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILED,
     USER_LOADED_ERROR,
+    USER_PROFILE_CLEAR,
+    LOGOUT_USER,
 } from "../../services";
 
 /**
@@ -26,11 +28,6 @@ import { setAlert } from "../../services";
  * Permet de charger les données une fois connecté
  */
 export const loadUser = () => async (dispatch) => {
-    // vérifie le token stocké dans le navigateur
-    if (localStorage.fusetoken) {
-        setAuthTokenHeaders(localStorage.fusetoken);
-    }
-
     try {
         //récupère l'api
         const response = await GET_API("user");
@@ -40,7 +37,7 @@ export const loadUser = () => async (dispatch) => {
             type: USER_LOADED,
             payload: response.data,
         });
-        dispatch(setAlert("Vos données sont chargé.", "success"));
+        // dispatch(setAlert("Vos données sont chargé.", "success"));
     } catch (err) {
         dispatch({
             type: USER_LOADED_ERROR,
@@ -137,7 +134,13 @@ export const login = (body) => async (dispatch) => {
 /**
  * Permet la déconnexion
  */
-export const logout = () => async (dispatch) => {
+export const logoutUser = () => async (dispatch) => {
     try {
-    } catch (err) {}
+        await POST_API("logout");
+        dispatch({ type: USER_PROFILE_CLEAR });
+        dispatch({ type: LOGOUT_USER });
+        dispatch(setAlert("Vous venez de vous déconnecté.", "info"));
+    } catch (error) {
+        console.log(error);
+    }
 };

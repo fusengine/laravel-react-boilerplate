@@ -1,4 +1,5 @@
-import { TOKEN_NAME } from "./defaults/constantes.config";
+import { TOKEN_NAME } from "./constantes.config";
+import { createBrowserHistory } from "history";
 
 /**
  * Permet d'accédé a la valeur du token ou le retire du header
@@ -12,6 +13,13 @@ export const setAuthTokenHeaders = (token) => {
         delete axios.defaults.headers.common[TOKEN_NAME]; // remove token
     }
 };
+
+/**
+ * Permet de forcé le rafraîchissement
+ */
+export const history = createBrowserHistory({
+    forceRefresh: true,
+});
 
 /**
  * Change la couleur de la classe si il y'a une erreur

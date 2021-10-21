@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\Sanctum;
 
 class AuthenticationController extends Controller
 {
@@ -76,7 +77,11 @@ class AuthenticationController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->user()->currentAccessToken()->delete();
+        if ($token = $request->bearerToken()) {
+            $model       = Sanctum::$personalAccessTokenModel;
+            $accessToken = $model::findToken($token);
+            $accessToken->delete();
+        }
 
         return response()->json([
             'message' => 'You are logout'], 200);

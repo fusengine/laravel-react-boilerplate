@@ -1,12 +1,14 @@
-import { API_CONNECTION, TOKEN_NAME } from "./defaults/constantes.config";
+import { API_CONNECTION } from "./constantes.config";
+import { getSessionStorage } from "./sessionStorage.config";
 
 /** Options d'axios */
 const options = {
     headers: {
         Accept: "application/json",
-        //"Content-Type": "application/json",
-        //"X-CSRF-TOKEN": document.getElementsByName("csrf-token")[0].content,
-        // Authorization: "Bearer " + localStorage.getItem(TOKEN_NAME),
+        Authorization: "Bearer " + getSessionStorage(),
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": document.getElementsByName("csrf-token")[0].content,
+        //"X-XSRF-TOKEN": (document.cookie = "XSRF-TOKEN"),
     },
 };
 
@@ -18,7 +20,7 @@ const API = axios.create({
 });
 
 API.interceptors.request.use((req) => {
-    req.headers["Authorization"] = `Bearer ${localStorage.getItem(TOKEN_NAME)}`;
+    req.headers["Authorization"] = `Bearer ${getSessionStorage()}`;
     return req;
 });
 

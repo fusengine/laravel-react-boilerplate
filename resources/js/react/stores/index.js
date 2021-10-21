@@ -8,6 +8,10 @@ import reducers from "../services/redux/reducers";
 const combineReducersApp = combineReducers(reducers);
 const middlewares = [thunkMiddleware];
 
+/**
+ * crée un middleware permettant la sauvegarde du
+ */
+
 if (process.env.NODE_ENV === "development") {
     // Push le logger si on est en dev
     middlewares.push(logger);

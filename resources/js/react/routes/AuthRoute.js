@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { authenticatedSelector, loadingUserSelector } from "../services";
+import { getSessionStorage } from "../config";
 
 /** Permet de dire si on est authentifié */
 const AuthRoute = ({
@@ -9,11 +11,13 @@ const AuthRoute = ({
     loading,
     ...rest
 }) => {
+    const verifyAuth = !isAuthenticated && loading;
+    const storage = getSessionStorage();
     return (
         <Route
             {...rest}
             render={(props) =>
-                isAuthenticated === false && loading === false ? (
+                !storage && verifyAuth ? (
                     <Redirect
                         to={{
                             pathname: "/login",
@@ -30,8 +34,8 @@ const AuthRoute = ({
 
 /** Extrait l'état au propriété */
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.authentication.isAuthenticated,
-    loading: state.authentication.loading,
+    isAuthenticated: authenticatedSelector(state),
+    loading: loadingUserSelector(state),
 });
 
 export default connect(mapStateToProps)(AuthRoute);
