@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-// Récupèrer l'état des utilisateur selectioné
+// Récupère l'état des utilisateur sélectionné
 const userSelector = (state) => state.authentication;
 
 /**

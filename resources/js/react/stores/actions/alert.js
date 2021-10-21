@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 
-import { SET_ALERT, REMOVE_ALERT } from "../../services";
+import { SET_ALERT, REMOVE_ALERT } from "../../services/redux";
 
 /** envoie l'ensemble des alertes a dispatché */
 export const setAlert =
-    (msg, alertType, timeout = 5000) =>
+    (msg, alertType, timeout = 6000) =>
     (dispatch) => {
         const id = uuidv4(); // génère des chiffre et lettre aléatoire
         dispatch({

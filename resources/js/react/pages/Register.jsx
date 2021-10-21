@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import { Header, Card, InputFloat } from "../components";
 
-import { register, authenticatedSelector } from "../services/";
+import { register, authenticatedSelector } from "../services/redux";
 import { errorClassField, errorFieldMessage } from "../config";
 
 const Register = ({ register, error, isAuthenticated }) => {
@@ -30,16 +30,18 @@ const Register = ({ register, error, isAuthenticated }) => {
             ...form,
         });
     };
+
+    const title = <Fragment>S'inscrire</Fragment>;
     // Redirect si connecté
     if (isAuthenticated) {
         return <Redirect to="/profile/user" />;
     }
     return (
         <Fragment>
-            <Header title="Register Page"></Header>
+            <Header title={title}></Header>
             <Card>
                 <form onSubmit={(e) => submitData(e)}>
-                    <InputFloat name="Full name">
+                    <InputFloat name="Nom complet">
                         <input
                             type="text"
                             name="name"
@@ -50,7 +52,7 @@ const Register = ({ register, error, isAuthenticated }) => {
                         />
                         {errorFieldMessage(error && error.name)}
                     </InputFloat>
-                    <InputFloat name="Email adresse">
+                    <InputFloat name="Adresse email">
                         <input
                             type="email"
                             name="email"
@@ -61,7 +63,7 @@ const Register = ({ register, error, isAuthenticated }) => {
                         />
                         {errorFieldMessage(error && error.email)}
                     </InputFloat>
-                    <InputFloat name="Password">
+                    <InputFloat name="Mot de passe">
                         <input
                             type="password"
                             name="password"
@@ -70,8 +72,9 @@ const Register = ({ register, error, isAuthenticated }) => {
                             id="floatingInput"
                             placeholder="my password"
                         />
+                        {errorFieldMessage(error && error.password)}
                     </InputFloat>
-                    <InputFloat name="Password confirmation">
+                    <InputFloat name="Confirmer le mot de passe">
                         <input
                             type="password"
                             name="password_confirmation"
@@ -83,7 +86,7 @@ const Register = ({ register, error, isAuthenticated }) => {
                         {errorFieldMessage(error && error.password)}
                     </InputFloat>
 
-                    <button className="btn btn-primary">Register</button>
+                    <button className="btn btn-primary">s'inscrire</button>
                 </form>
             </Card>
         </Fragment>

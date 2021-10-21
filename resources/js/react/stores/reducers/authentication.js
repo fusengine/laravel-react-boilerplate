@@ -1,4 +1,5 @@
 import {
+    clearAllCookie,
     getSessionStorage,
     removeSessionStorage,
     setSessionStorage,
@@ -13,7 +14,7 @@ import {
     USER_LOADED,
     LOGOUT_USER,
     USER_PROFILE_CLEAR,
-} from "../../services";
+} from "../../services/redux";
 
 const initialState = {
     user: {},
@@ -60,6 +61,7 @@ export default (state = initialState, action) => {
         case USER_PROFILE_CLEAR:
         case REGISTER_USER_FAILED: {
             removeSessionStorage();
+            clearAllCookie();
             return {
                 ...state,
                 user: {},

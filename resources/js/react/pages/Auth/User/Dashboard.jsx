@@ -7,7 +7,7 @@ import {
     authenticatedSelector,
     loadingSelector,
     loadingUserSelector,
-} from "../../../services";
+} from "../../../services/redux";
 
 const Dashboard = ({ user, loading, isAuthenticated }) => {
     return !isAuthenticated && loading ? (

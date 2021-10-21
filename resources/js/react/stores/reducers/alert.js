@@ -1,4 +1,4 @@
-import { SET_ALERT, REMOVE_ALERT } from "../../services";
+import { SET_ALERT, REMOVE_ALERT } from "../../services/redux";
 
 /** déclaration de l'état initial avec un tableau vide */
 const initialState = [];

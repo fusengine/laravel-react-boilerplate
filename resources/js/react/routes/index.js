@@ -2,12 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { Loading } from "../components";
-
 import { Login, About, Home, Register } from "../pages";
-
-/**
- * Route authentifié
- */
 import AuthRoute from "./AuthRoute";
 
 /**

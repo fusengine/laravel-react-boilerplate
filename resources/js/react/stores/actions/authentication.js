@@ -1,9 +1,4 @@
-import {
-    GET_API,
-    POST_API,
-    setAuthTokenHeaders,
-    TOKEN_NAME,
-} from "../../config";
+import { GET_API, POST_API } from "../../config";
 
 /**
  * Types
@@ -17,12 +12,12 @@ import {
     USER_LOADED_ERROR,
     USER_PROFILE_CLEAR,
     LOGOUT_USER,
-} from "../../services";
+} from "../../services/redux";
 
 /**
  * Service
  */
-import { setAlert } from "../../services";
+import { setAlert } from "../../services/redux";
 
 /**
  * Permet de charger les données une fois connecté
@@ -105,29 +100,18 @@ export const login = (body) => async (dispatch) => {
     } catch (err) {
         switch (err.response.status) {
             case 422:
-                dispatch(
-                    setAlert(
-                        "Erreur de connexion au compte, veuillez réessayé.",
-                        "warning"
-                    )
-                );
+                dispatch(setAlert(`Identifiants invalides.`, "warning"));
+                dispatch({
+                    type: LOGIN_USER_FAILED,
+                    payload: err.response.data.errors,
+                });
                 break;
             case 500:
-                dispatch(
-                    setAlert(
-                        "Problème de connexion à la base de données",
-                        "danger"
-                    )
-                );
+                dispatch(setAlert("Erreur 500 database.", "danger"));
                 break;
             default:
                 return err.response.status;
         }
-
-        dispatch({
-            type: LOGIN_USER_FAILED,
-            payload: err.response.data.errors,
-        });
     }
 };
 
@@ -141,6 +125,8 @@ export const logoutUser = () => async (dispatch) => {
         dispatch({ type: LOGOUT_USER });
         dispatch(setAlert("Vous venez de vous déconnecté.", "info"));
     } catch (error) {
-        console.log(error);
+        dispatch(
+            setAlert("Vous n'êtes pas authentifié, recharger la page.", "dark")
+        );
     }
 };

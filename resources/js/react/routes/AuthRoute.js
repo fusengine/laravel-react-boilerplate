@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { authenticatedSelector, loadingUserSelector } from "../services";
+import { authenticatedSelector, loadingUserSelector } from "../services/redux";
+
 import { getSessionStorage } from "../config";
 
 /** Permet de dire si on est authentifié */

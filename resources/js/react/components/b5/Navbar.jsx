@@ -8,7 +8,7 @@ import {
     logoutUser,
     authenticatedSelector,
     loadingSelector,
-} from "../../services";
+} from "../../services/redux";
 
 const Navbar = ({ logoutUser, isAuthenticated, loading }) => {
     const logout = () => {

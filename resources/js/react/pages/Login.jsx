@@ -1,18 +1,24 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { BsUnlockFill } from "react-icons/bs";
 
 /** Components */
 import { Header, Card, InputFloat } from "../components";
 
-import { login, loadingSelector, authenticatedSelector } from "../services/";
+import {
+    login,
+    loadingSelector,
+    authenticatedSelector,
+} from "../services/redux";
+
 import { errorClassField, errorFieldMessage } from "../config";
 
 // CSS
 const Login = ({ login, error, isAuthenticated, loading }) => {
     const [form, setForm] = useState({
-        email: "a@a.ch",
-        password: "111111",
+        email: "",
+        password: "",
     });
 
     const { email, password } = form;
@@ -25,7 +31,6 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
     /** submit form */
     const submitData = async (e) => {
         e.preventDefault();
-
         await login({
             ...form,
         });
@@ -39,11 +44,11 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
     return isAuthenticated ? (
         <Redirect to="/profile/user" />
     ) : (
-        <Fragment>
-            <Header title="Login Page"></Header>
+        <div className="container">
+            <Header title="Se connecter"></Header>
             <Card>
                 <form onSubmit={(e) => submitData(e)}>
-                    <InputFloat name="Email adresse">
+                    <InputFloat name="Adresse email">
                         <input
                             type="email"
                             name="email"
@@ -55,7 +60,7 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
                         />
                         {errorFieldMessage(error && error.email)}
                     </InputFloat>
-                    <InputFloat name="Password">
+                    <InputFloat name="Mot de passe">
                         <input
                             type="password"
                             name="password"
@@ -67,10 +72,13 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
                         />
                     </InputFloat>
 
-                    <button className="btn btn-primary">Connect</button>
+                    <button className="btn btn-primary">
+                        <BsUnlockFill className="icon-resizer" />
+                        Se connecter
+                    </button>
                 </form>
             </Card>
-        </Fragment>
+        </div>
     );
 };
 

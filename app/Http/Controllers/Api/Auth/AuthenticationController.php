@@ -49,9 +49,10 @@ class AuthenticationController extends Controller
             $request->session()->regenerate();
 
             return response()->json([
-                'errors' => [
-                    'email'    => ['Email is invalid'],
-                    'password' => ['Password is wrong'],
+                "message" => "Vos données sont invalide.",
+                'errors'  => [
+                    'email'    => ['Adresse email est invalide.'],
+                    'password' => ['Mot de passe erroné.'],
                 ],
             ], 422);
         }
