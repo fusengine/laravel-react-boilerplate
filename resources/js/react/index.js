@@ -5,9 +5,14 @@ import { Provider } from "react-redux";
 import store from "./stores";
 import App from "./App";
 
+const rendDom = document.getElementById("fusengine");
+
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById("fusengine")
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
+
+    rendDom
 );

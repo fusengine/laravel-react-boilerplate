@@ -5,10 +5,9 @@ import { getSessionStorage } from "./sessionStorage.config";
 const options = {
     headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + getSessionStorage(),
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getSessionStorage(),
         "X-CSRF-TOKEN": document.getElementsByName("csrf-token")[0].content,
-        //"X-XSRF-TOKEN": (document.cookie = "XSRF-TOKEN"),
     },
 };
 

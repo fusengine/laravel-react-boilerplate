@@ -52,7 +52,7 @@ export const register = (body) => async (dispatch) => {
             type: REGISTER_USER_SUCCESS,
             payload: res.data,
         });
-        dispatch(setAlert("Compte crée avec success", "primary"));
+        dispatch(setAlert("Compte crée avec succès", "primary"));
     } catch (err) {
         switch (err.response.status) {
             case 422:

@@ -5,18 +5,33 @@ const userSelector = (state) => state.authentication;
 
 /**
  * Permet de savoir si l'utilisateur est authentifié
- * @param any state l'état
+ * @param any auth l'état
  * @returns
  */
-export const authenticatedSelector = (state) =>
-    state.authentication.isAuthenticated;
+export const authenticatedSelector = createSelector(
+    [userSelector],
+    (auth) => auth.isAuthenticated
+);
 
 /**
  * Permet de savoir si l'état loading est chargé
- * @param any state
+ * @param any auth
  * @returns
  */
-export const loadingSelector = (state) => state.authentication.loading;
+export const loadingSelector = createSelector(
+    [userSelector],
+    (auth) => auth.loading
+);
+
+/**
+ * Permet de savoir si l'état des erreurs
+ * @param any auth
+ * @returns
+ */
+export const errorSelector = createSelector(
+    [userSelector],
+    (auth) => auth.error
+);
 
 /**
  * Permet de savoir si l'état utilisateur est chargé

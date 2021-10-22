@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { BsUnlockFill } from "react-icons/bs";
 
 /** Components */
@@ -23,7 +23,7 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
 
     const { email, password } = form;
 
-    /** target input field */
+    /** Cible les champs et récupère la valeur a enregistré en db */
     const handleChange = (name) => (e) => {
         setForm({ ...form, [name]: e.target.value });
     };
@@ -36,10 +36,11 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
         });
     };
 
-    // // Redirect si connecté
-    // if (isAuthenticated) {
-    //     return <Redirect to="/profile/user" />;
-    // }
+    const showLinkRegister = error ? (
+        <div className=" mt-3 animate__animated animate__fadeInUp">
+            <Link to="/register">Créer un compte?</Link>
+        </div>
+    ) : null;
 
     return isAuthenticated ? (
         <Redirect to="/profile/user" />
@@ -70,12 +71,15 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
                             id="floatingInput"
                             placeholder="my password"
                         />
+                        {errorFieldMessage(error && error.password)}
                     </InputFloat>
 
                     <button className="btn btn-primary">
                         <BsUnlockFill className="icon-resizer" />
                         Se connecter
                     </button>
+
+                    {showLinkRegister}
                 </form>
             </Card>
         </div>

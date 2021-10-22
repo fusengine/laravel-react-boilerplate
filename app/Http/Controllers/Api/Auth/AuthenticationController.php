@@ -27,8 +27,9 @@ class AuthenticationController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        //$request->session()->regenerate();
-        $createToken = $user->createToken("Token Register $user->name")->plainTextToken;
+        $createToken = $user
+            ->createToken("Token Register $user->name")
+            ->plainTextToken;
 
         return response()->json([
             'token'         => $createToken,
@@ -45,9 +46,6 @@ class AuthenticationController extends Controller
     public function login(LoginRequest $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
-
-            $request->session()->regenerate();
-
             return response()->json([
                 "message" => "Vos données sont invalide.",
                 'errors'  => [
