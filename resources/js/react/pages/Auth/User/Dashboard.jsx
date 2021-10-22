@@ -10,7 +10,8 @@ import {
 } from "../../../services/redux";
 
 const Dashboard = ({ user, loading, isAuthenticated }) => {
-    return !isAuthenticated && loading ? (
+    console.log(user);
+    return !isAuthenticated && loading && user ? (
         <Loading />
     ) : (
         <Fragment>

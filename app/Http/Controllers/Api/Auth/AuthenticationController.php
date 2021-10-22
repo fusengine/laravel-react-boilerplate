@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Fusengine\repositories\Authentication\AuthRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\Sanctum;
 
 class AuthenticationController extends Controller
 {
+    public function __construct(protected AuthRepositoryInterface $auth_repository)
+    {
+        $this->auth_repository = $auth_repository;
+    }
+
     /**
      * Permet de créer un compte utilisateur
      *
@@ -21,20 +23,8 @@ class AuthenticationController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        $createToken = $user
-            ->createToken("Token Register $user->name")
-            ->plainTextToken;
-
-        return response()->json([
-            'token'         => $createToken,
-            'Authorization' => 'Bearer',
-        ], 200);
+        return $this->auth_repository
+            ->registerUser($request);
     }
 
     /**
@@ -45,26 +35,8 @@ class AuthenticationController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json([
-                "message" => "Vos données sont invalide.",
-                'errors'  => [
-                    'email'    => ['Adresse email est invalide.'],
-                    'password' => ['Mot de passe erroné.'],
-                ],
-            ], 422);
-        }
-
-        $token = auth()
-            ->user()
-            ->createToken("Token Generate by " . Auth::user()->name)
-            ->plainTextToken;
-
-        return response()->json([
-            'token_access' => $token,
-            'token_type'   => "Bearer",
-        ], 200);
-
+        return $this->auth_repository
+            ->loginUser($request);
     }
 
     /**
@@ -74,16 +46,7 @@ class AuthenticationController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::guard('web')->logout();
-
-        if ($token = $request->bearerToken()) {
-            $model       = Sanctum::$personalAccessTokenModel;
-            $accessToken = $model::findToken($token);
-            $accessToken->delete();
-        }
-
-        return response()->json([
-            'message' => 'You are logout'], 200);
-
+        return $this->auth_repository
+            ->logoutUser($request);
     }
 }

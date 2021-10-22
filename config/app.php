@@ -175,6 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Fusengine Provider Repository
+         */
+        App\Providers\FusengineRepositoryServiceProvider::class,
+
     ],
 
     /*
