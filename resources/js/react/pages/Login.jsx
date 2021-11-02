@@ -12,7 +12,7 @@ import {
     authenticatedSelector,
 } from "../services/redux";
 
-import { errorClassField, errorFieldMessage } from "../config";
+import { errorClassField } from "../config";
 
 // CSS
 const Login = ({ login, error, isAuthenticated, loading }) => {
@@ -41,6 +41,18 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
             <Link to="/register">Créer un compte?</Link>
         </div>
     ) : null;
+
+    /**
+     * Affiche le text en rouge en cas d'erreur
+     * @param {*} name
+     * @returns
+     */
+    const errorFieldMessage = (name) => {
+        if (name) {
+            return <div className="text-danger">{name ? name : ""}</div>;
+        }
+        return "";
+    };
 
     return isAuthenticated ? (
         <Redirect to="/profile/user" />

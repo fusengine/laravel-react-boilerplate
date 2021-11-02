@@ -1,0 +1,21 @@
+{
+  "js/app.js": {
+    "file": "app.2181408f.js",
+    "src": "js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "js/react/pages/Auth/User/Dashboard.jsx"
+    ],
+    "css": [
+      "app.52a44bbe.css"
+    ]
+  },
+  "js/react/pages/Auth/User/Dashboard.jsx": {
+    "file": "Dashboard.c92d9b57.js",
+    "src": "js/react/pages/Auth/User/Dashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "js/app.js"
+    ]
+  }
+}

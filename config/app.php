@@ -179,7 +179,7 @@ return [
          * Fusengine Provider Repository
          */
         App\Providers\FusengineRepositoryServiceProvider::class,
-
+        App\Providers\FusengineViteProvider::class,
     ],
 
     /*
@@ -233,7 +233,7 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-
+        'Vite'         => App\Fusengine\Services\ViteJs\Facades\ViteFacade::class,
     ],
 
 ];

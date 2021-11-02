@@ -15,6 +15,7 @@ class FusengineRepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         /**
          * Authentification  Repository
          */

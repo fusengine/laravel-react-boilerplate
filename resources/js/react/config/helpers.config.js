@@ -1,5 +1,6 @@
 import { TOKEN_NAME } from "./constantes.config";
 import { createBrowserHistory } from "history";
+import { ErrorFieldMessage } from "./components/ErrorFieldMessage";
 
 /**
  * Permet d'accédé a la valeur du token ou le retire du header
@@ -49,9 +50,9 @@ export const errorClassField = (name) => {
  * @param {*} name
  * @returns
  */
-export const errorFieldMessage = (name) => {
-    if (name) {
-        return <div className="text-danger">{name ? name : ""}</div>;
-    }
-    return "";
-};
+// export const errorFieldMessage = (name) => {
+//     if (name) {
+//         return <ErrorFieldMessage name={name} />;
+//     }
+//     return "";
+// };

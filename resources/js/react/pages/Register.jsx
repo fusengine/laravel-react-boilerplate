@@ -11,7 +11,7 @@ import {
     errorSelector,
     loadingSelector,
 } from "../services/redux";
-import { errorClassField, errorFieldMessage } from "../config";
+import { errorClassField } from "../config";
 
 const Register = ({ register, error, isAuthenticated, loading }) => {
     const [form, setForm] = useState({
@@ -35,6 +35,18 @@ const Register = ({ register, error, isAuthenticated, loading }) => {
         await register({
             ...form,
         });
+    };
+
+    /**
+     * Affiche le text en rouge en cas d'erreur
+     * @param {*} name
+     * @returns
+     */
+    const errorFieldMessage = (name) => {
+        if (name) {
+            return <div className="text-danger">{name ? name : ""}</div>;
+        }
+        return "";
     };
 
     /** si formulaire okay */
