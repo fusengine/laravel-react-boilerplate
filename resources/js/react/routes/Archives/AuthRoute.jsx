@@ -1,9 +1,12 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { authenticatedSelector, loadingUserSelector } from "../services/redux";
+import {
+    authenticatedSelector,
+    loadingUserSelector,
+} from "../../services/redux";
 
-import { getSessionStorage } from "../config";
+import { getSessionStorage } from "../../config";
 
 /** Permet de dire si on est authentifié */
 const AuthRoute = ({
@@ -19,7 +22,8 @@ const AuthRoute = ({
             {...rest}
             render={(props) =>
                 !storage && verifyAuth ? (
-                    <Redirect
+                    <Navigate
+                        replace
                         to={{
                             pathname: "/login",
                             state: { from: props.location },

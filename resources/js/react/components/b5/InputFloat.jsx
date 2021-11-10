@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputFloat = ({ children, name }) => {
+const InputForm = ({ children, name }) => {
     return (
         <div className="form-floating mb-3 ">
             {children}
@@ -11,4 +11,4 @@ const InputFloat = ({ children, name }) => {
     );
 };
 
-export default InputFloat;
+export default InputForm;

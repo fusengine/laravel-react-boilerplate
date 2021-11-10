@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { history } from "../../config";
 
@@ -31,8 +31,8 @@ const Navbar = ({ logoutUser, isAuthenticated, loading }) => {
                 <li>
                     <NavLink
                         className="dropdown-item"
-                        activeClassName="active"
-                        exact={true}
+                        activeclassname="active"
+                        exact="true"
                         to="/login"
                     >
                         login
@@ -41,8 +41,8 @@ const Navbar = ({ logoutUser, isAuthenticated, loading }) => {
                 <li>
                     <NavLink
                         className="dropdown-item"
-                        activeClassName="active"
-                        exact={true}
+                        activeclassname="active"
+                        exact="true"
                         to="/register"
                     >
                         register
@@ -67,8 +67,8 @@ const Navbar = ({ logoutUser, isAuthenticated, loading }) => {
                 <li>
                     <NavLink
                         className="dropdown-item"
-                        activeClassName="active"
-                        exact={true}
+                        activeclassname="active"
+                        exact="true"
                         to="/profile/user"
                     >
                         info
@@ -92,8 +92,8 @@ const Navbar = ({ logoutUser, isAuthenticated, loading }) => {
             <li className="nav-item">
                 <NavLink
                     className="nav-link"
-                    exact={true}
-                    activeClassName="active"
+                    exact="true"
+                    activeclassname="active"
                     to="/"
                 >
                     <i className="ri-home-2-fill"></i> Home
@@ -102,7 +102,7 @@ const Navbar = ({ logoutUser, isAuthenticated, loading }) => {
             <li className="nav-item">
                 <NavLink
                     className="nav-link"
-                    activeClassName="active"
+                    activeclassname="active"
                     to="/about"
                 >
                     About
@@ -122,4 +122,4 @@ const mapStateToProps = (state) => ({
     loading: loadingSelector(state),
 });
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser })(Navbar);

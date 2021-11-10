@@ -1,6 +1,5 @@
 import { TOKEN_NAME } from "./constantes.config";
 import { createBrowserHistory } from "history";
-import { ErrorFieldMessage } from "./components/ErrorFieldMessage";
 
 /**
  * Permet d'accédé a la valeur du token ou le retire du header
@@ -34,6 +33,17 @@ export const clearAllCookie = () => {
 };
 
 /**
+ * Permet d'extraire un object d'un tableau
+ *
+ * @param Array data donnée du tableau []
+ * @param Integer Key la clef du tableau contenant la donnée.
+ * @returns Object
+ */
+export const fuseExtractArrayToJson = (data, key = 0) => {
+    return data && data.length ? data[key] : "Cette donnée est vide.";
+};
+
+/**
  * Change la couleur de la classe si il y'a une erreur
  * @param {*} name
  * @returns
@@ -46,13 +56,16 @@ export const errorClassField = (name) => {
 };
 
 /**
- * Affiche le text en rouge en cas d'erreur
- * @param {*} name
+ * Permet de simuler un chargement
+ * @param Int duration duré de chargement 1000 => 1 sec
  * @returns
  */
-// export const errorFieldMessage = (name) => {
-//     if (name) {
-//         return <ErrorFieldMessage name={name} />;
-//     }
-//     return "";
-// };
+export const wait = (duration = 1000) => {
+    return new Promise((resolve) => {
+        return window.setTimeout(resolve, duration);
+    });
+};
+
+export default function isEmpty(obj) {
+    return Object.getOwnPropertyNames(obj).length === 0;
+}

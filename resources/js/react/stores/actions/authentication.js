@@ -44,7 +44,7 @@ export const loadUser = () => async (dispatch) => {
 /**
  * Permet de créer un compte
  */
-export const register = (body) => async (dispatch) => {
+export const registerUser = (body) => async (dispatch) => {
     try {
         const res = await POST_API("/register", body);
 

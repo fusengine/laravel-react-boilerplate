@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Routes from "./routes";
+import AppRoutes from "./routes/AppRoutes";
 import { Alert, Navbar } from "./components";
 
 import { loadUser, authenticatedSelector } from "./services/redux";
@@ -22,7 +22,7 @@ const App = ({ dispatchUserLoading }) => {
         <Router>
             <Navbar />
             <Alert />
-            <Route component={Routes} />
+            <AppRoutes />
         </Router>
     );
 };
