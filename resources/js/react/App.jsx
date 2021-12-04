@@ -5,8 +5,12 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes";
 import { Alert, Navbar } from "./components";
 
-import { loadUser, authenticatedSelector } from "./services/redux";
-import { getSessionStorage, setAuthTokenHeaders } from "./config";
+import {
+    loadUser,
+    authenticatedSelector,
+    getSessionStorage,
+    setAuthTokenHeaders,
+} from "./services";
 
 const App = ({ dispatchUserLoading }) => {
     const dispatch = useDispatch();

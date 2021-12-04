@@ -1,18 +1,18 @@
+import { Button, Spinner } from "reactstrap";
+
 /**
  * Permet d'afficher le button de chargement
  */
-const LoadingButton = ({ isSubmitting, loadingName, submitName }) => {
-    return isSubmitting ? (
-        <button className="btn btn-primary " type="button" disabled>
-            <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-            ></span>{" "}
-            {loadingName}
-        </button>
+const LoadingButton = ({ isSubmit, labelName, loadingLabelName }) => {
+    return isSubmit ? (
+        <Button block color="primary" className="hstack disabled">
+            <Spinner color="light" className="me-1" size="sm"></Spinner>
+            {loadingLabelName}
+        </Button>
     ) : (
-        <button className="btn btn-primary">{submitName}</button>
+        <Button block color="primary">
+            {labelName}
+        </Button>
     );
 };
 export default LoadingButton;

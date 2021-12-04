@@ -1,2 +1,2 @@
-export * from "../../stores/actions/authentication";
-export * from "../../stores/actions/alert";
+export * from "../../stores/authentication/action";
+export * from "../../stores/alert/action";

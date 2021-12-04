@@ -1,4 +1,4 @@
-import { GET_API, POST_API } from "../../config";
+import { GET_API, POST_API } from "../../services";
 
 /**
  * Types
@@ -12,12 +12,12 @@ import {
     USER_LOADED_ERROR,
     USER_PROFILE_CLEAR,
     LOGOUT_USER,
-} from "../../services/redux";
+} from "../types.redux";
 
 /**
  * Service
  */
-import { setAlert } from "../../services/redux";
+import { setAlert } from "../../services";
 
 /**
  * Permet de charger les données une fois connecté

@@ -15,3 +15,7 @@ yarn-error.log
 /.vscode
 yarn.lock
 pnpm-lock.yaml
+app/.DS_Store
+database/.DS_Store
+resources/.DS_Store
+.DS_Store

@@ -9,11 +9,10 @@ const Alert = ({ alerts }) => {
             <div
                 id="alert-message"
                 key={alert.id}
-                className={`rounded alert-${alert.alertType} animate__animated animate__fadeIn mb-2 shadow-sm`}
+                className={`rounded alert-${alert.alertType}  animate__animated animate__fadeIn mb-2 shadow`}
                 role="alert"
             >
-                <div className="p-3 mt-1">{alert.msg}</div>
-
+                <div className="p-3 mt-1 ">{alert.msg}</div>
                 <div className="progress border-alert">
                     <div
                         className={`progress-bar rounded-bottom progress-bar-animated progress-bar-striped bg-${alert.alertType}`}
@@ -30,7 +29,7 @@ const Alert = ({ alerts }) => {
     return (
         <div
             className="top-0 p-3 position-absolute end-0"
-            style={{ zIndex: 11 }}
+            style={{ zIndex: 1000 }}
         >
             {alertMessage}
         </div>

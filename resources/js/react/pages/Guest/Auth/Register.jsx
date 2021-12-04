@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { BsCheckLg } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 
@@ -12,23 +12,24 @@ import {
 } from "../../../components";
 
 import {
+    wait,
     registerUser,
     authenticatedSelector,
     errorSelector,
     loadingSelector,
-} from "../../../services/redux";
-import { wait } from "../../../config";
+} from "../../../services";
 
-const Register = ({ registerUser, error, loading }) => {
-    const { register, handleSubmit, formState } = useForm();
-    const { isSubmitting } = formState;
+const Register = ({ registerUser, isAuthenticated, error, loading }) => {
+    const {
+        handleSubmit,
+        control: controlRegister,
+        formState: { isSubmitting },
+    } = useForm();
 
     /** submit form */
     const submitRegister = async (data) => {
         await wait(2000);
-        await registerUser({
-            ...data,
-        });
+        await registerUser({ ...data });
     };
 
     /** si formulaire okay */
@@ -43,55 +44,57 @@ const Register = ({ registerUser, error, loading }) => {
         </Fragment>
     );
 
+    if (isAuthenticated) return <Navigate replace to="/profile/user" />;
+
     /** Formulaire */
     const sendForm = (
         <form onSubmit={handleSubmit(submitRegister)}>
             <InputFormFloat
-                labelName="Nom complet"
+                labelName="Nom & Prénom"
                 type="text"
                 name="name"
-                placeholder="Ajouter nom"
-                isSubmitting={isSubmitting}
+                placeholder="Ajouter votre Nom"
+                control={controlRegister}
+                isSubmit={isSubmitting}
                 errors={error && error.name}
                 disabled={isSubmitting}
-                isSubmitting={isSubmitting}
-                register={register("name", { required: true })}
             />
             <InputFormFloat
-                labelName="Adresse email"
+                labelName="Adresse Email"
                 type="email"
                 name="email"
                 placeholder="Ajouter email"
+                control={controlRegister}
+                isSubmit={isSubmitting}
                 errors={error && error.email}
                 disabled={isSubmitting}
-                isSubmitting={isSubmitting}
-                register={register("email", { required: true })}
             />
             <InputFormFloat
                 labelName="Mot de passe"
                 type="password"
                 name="password"
                 placeholder="Ajouter email"
+                isSubmit={isSubmitting}
+                required={false}
+                control={controlRegister}
                 errors={error && error.password}
                 disabled={isSubmitting}
-                isSubmitting={isSubmitting}
-                register={register("password", { required: true })}
             />
             <InputFormFloat
                 labelName="Confirmer mot de passe"
                 type="password"
                 name="password_confirmation"
-                placeholder="Ajouter email"
+                placeholder="passwordConfirmation"
+                isSubmit={isSubmitting}
+                required={false}
+                control={controlRegister}
                 errors={error && error.password}
                 disabled={isSubmitting}
-                isSubmitting={isSubmitting}
-                register={register("password_confirmation", { required: true })}
             />
-
             <LoadingButton
-                isSubmitting={isSubmitting}
-                loadingName="Création du compte en cour"
-                submitName="S'inscrire"
+                isSubmit={isSubmitting}
+                loadingLabelName="Création du compte en cour"
+                labelName="S'inscrire"
             />
         </form>
     );

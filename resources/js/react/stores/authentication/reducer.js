@@ -3,7 +3,7 @@ import {
     getSessionStorage,
     removeSessionStorage,
     setSessionStorage,
-} from "../../config";
+} from "../../services";
 
 import {
     REGISTER_USER_SUCCESS,
@@ -14,7 +14,7 @@ import {
     USER_LOADED,
     LOGOUT_USER,
     USER_PROFILE_CLEAR,
-} from "../../services/redux";
+} from "../types.redux";
 
 const initialState = {
     user: {},

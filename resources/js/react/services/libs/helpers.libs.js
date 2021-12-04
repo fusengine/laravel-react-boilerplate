@@ -1,4 +1,4 @@
-import { TOKEN_NAME } from "./constantes.config";
+import { TOKEN_NAME } from "./constantes.lib";
 import { createBrowserHistory } from "history";
 
 /**

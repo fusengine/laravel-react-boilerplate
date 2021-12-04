@@ -12,23 +12,19 @@ import {
     LoadingButton,
 } from "../../../components";
 
-import {
-    login,
-    loadingSelector,
-    authenticatedSelector,
-} from "../../../services/redux";
-import { wait } from "../../../config";
+import { wait, login, authenticatedSelector } from "../../../services";
 
-const Login = ({ login, error, isAuthenticated, loading }) => {
-    const { register, handleSubmit, formState } = useForm();
-    const { isSubmitting } = formState;
+const Login = ({ login, error, isAuthenticated }) => {
+    const {
+        handleSubmit,
+        control: controlLogin,
+        formState: { isSubmitting },
+    } = useForm();
 
     /** submit form */
     const submitLogin = async (form) => {
         await wait(2000);
-        await login({
-            ...form,
-        });
+        await login({ ...form });
     };
 
     const showLinkRegister =
@@ -38,39 +34,39 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
             </div>
         ) : null;
 
-    return isAuthenticated ? (
-        <Navigate replace to="/profile/user" />
-    ) : (
+    if (isAuthenticated) return <Navigate replace to="/profile/user" />;
+
+    return (
         <div className="container">
             <Header title="Se connecter"></Header>
-
             <Card>
                 <form onSubmit={handleSubmit(submitLogin)}>
                     <InputFormFloat
-                        labelName="Adresse email"
+                        labelName="Adresse Email"
                         type="email"
                         name="email"
                         placeholder="Ajouter email"
+                        control={controlLogin}
+                        isSubmit={isSubmitting}
                         errors={error && error.email}
                         disabled={isSubmitting}
-                        isSubmitting={isSubmitting}
-                        register={register("email", { required: true })}
                     />
                     <InputFormFloat
                         labelName="Mot de passe"
                         type="password"
                         name="password"
                         placeholder="Ajouter email"
+                        isSubmit={isSubmitting}
+                        required={false}
+                        control={controlLogin}
                         errors={error && error.password}
                         disabled={isSubmitting}
-                        isSubmitting={isSubmitting}
-                        register={register("password", { required: true })}
                     />
 
                     <LoadingButton
-                        isSubmitting={isSubmitting}
-                        loadingName="Connexion en cour"
-                        submitName={
+                        isSubmit={isSubmitting}
+                        loadingLabelName="Connexion en cour"
+                        labelName={
                             <Fragment>
                                 <BsUnlockFill className="icon-resizer" />
                                 Se connecter
@@ -87,7 +83,6 @@ const Login = ({ login, error, isAuthenticated, loading }) => {
 
 const mapStateToProps = (state) => ({
     error: state.authentication.error,
-    loading: loadingSelector(state),
     isAuthenticated: authenticatedSelector(state),
 });
 

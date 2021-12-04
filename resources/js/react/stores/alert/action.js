@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-import { SET_ALERT, REMOVE_ALERT } from "../../services/redux";
+import { SET_ALERT, REMOVE_ALERT } from "../types.redux";
 
 /** envoie l'ensemble des alertes a dispatché */
 export const setAlert =

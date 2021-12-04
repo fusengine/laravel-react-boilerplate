@@ -58,3 +58,37 @@ body {
     background-color: #fafcff;
     color: #050a30;
 }
+
+.form-control-lg {
+    min-height: calc(2.1em + 1rem + 2px);
+    padding: 0.2rem 0.8rem;
+    font-size: 1.1rem;
+    border-radius: 0.4rem;
+}
+
+.form-control-sm {
+    min-height: calc(1.2em + 1rem + 2px);
+    padding: 0.2rem 0.8rem;
+    font-size: 1.1rem;
+    border-radius: 0.4rem;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border: none !important;
+    border-color: #7c848b5d !important;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: none !important;
+}
+
+.fw-bold-6 {
+    font-weight: 600 !important;
+}
+
+.fw-bold-5 {
+    font-weight: 500 !important;
+}

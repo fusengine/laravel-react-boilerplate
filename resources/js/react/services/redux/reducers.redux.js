@@ -1,5 +1,5 @@
-import authentication from "../../stores/reducers/authentication";
-import alert from "../../stores/reducers/alert";
+import authentication from "../../stores/authentication/reducer";
+import alert from "../../stores/alert/reducer";
 
 export default {
     authentication,

@@ -1,5 +1,5 @@
-import { API_CONNECTION } from "./constantes.config";
-import { getSessionStorage } from "./sessionStorage.config";
+import { API_CONNECTION } from "./constantes.lib";
+import { getSessionStorage } from "./session.lib";
 
 /** Options d'axios */
 const options = {

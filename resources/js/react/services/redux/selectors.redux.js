@@ -1,1 +1,1 @@
-export * from "../../stores/selectors/authentication";
+export * from "../../stores/authentication/selector";

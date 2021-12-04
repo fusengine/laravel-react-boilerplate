@@ -1,4 +1,4 @@
-import { SESSION_STORAGE_NAME } from "./constantes.config";
+import { SESSION_STORAGE_NAME } from "./constantes.lib";
 
 /**
  * Insère un stockage du token en session
